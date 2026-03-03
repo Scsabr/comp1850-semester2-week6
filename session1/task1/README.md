@@ -32,9 +32,9 @@ You will need to both add a new function *and* adapt `main()` to do this.
 
 There are a number of features to add, and you can complete them in any order:
 
-- find the maximum number
-- find the minimum number
-- find the range of the numbers (max - min)
+- find the maximum number D
+- find the minimum number D
+- find the range of the numbers (max - min) D
 - find any numbers which are repeated more than once
 - find the most common number (mode)
 - sort the numbers from smallest to largest

@@ -12,32 +12,49 @@ int factorial(int n) {
   if (n == 0) {
     return 1;
   }
-
   return n * factorial(n - 1);
 }
 
 int main(int argc, char **argv) {
-  /*
-  The program should accept a command line argument as follows:
-  ./combinatorials n C r
-  ./combinatorials n P r
 
-  where n and r are both positive integers, and r is always less than or equal to n.
+  if(argc-4)
+  {
+    printf("Usage: %s n C r\n", argv[0]);
+    printf("Usage: %s n P r\n", argv[0]);
+    return 0;
+  }
 
-  for example:
-  ./combinatorials 7 C 2
+  int n, r;
+  double total;
+  int check;
 
-  Your program should then calculate and print out the correct result
+  check = sscanf(argv[1],"%d",&n);
+  if(check-1 || n < 0)
+  {
+    printf("Error: Bad n value\n");
+    return 1;
+  }
 
-  nCr should return the total combinations of r items out of n.
-  This is calculated by: n! / (r! (n - r)!)
+  check = sscanf(argv[3],"%d",&r);
+  if(check-1 || r < 0 || r > n)
+  {
+    printf("Error: Bad r value\n");
+    return 1;
+  }
 
-  nPr should return the total permutations of r items out of n.
-  This is calculated by: n! / (n-r)!
+  char option = argv[2][0];
+  switch(option)
+  {
+    case 'C':case 'c':
+    total = factorial(n) / (factorial(r) * factorial(n-r));
+    break;
+    case 'P':case 'p':
+    total = factorial(n) / factorial(n-r);
+    break;
+    default:
+    printf("Error: Bad option\n");
+    return 2;
+  }
 
-  Add appropriate validation to your program to make your code robust.
-
-  You should try and use functions to write your program.
-
-  */
+  printf("%d %c %d = %.0f\n", n, option, r, total);
 }

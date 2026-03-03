@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   // argument check to ensure users have entered some numbers.
-  if (argc < 2) {
+  if (argc < 2)
+  {
     printf("Usage: ./averages num1 ... numx\n");
     return 0;
   }
@@ -29,19 +31,22 @@ int main(int argc, char **argv) {
   // allocate the array:
   numbers = calloc(count, sizeof(int));
 
-  for (int i = 0; i < count; i++) {
+  for (int i = 0; i < count; i++)
+  {
     // rather than use atoi, sscanf to ensure the arguments are all numeric
     int check = sscanf(argv[i + 1], "%d", &numbers[i]);
 
     // sscanf() returns the number of values it found - if it does not return 1
     // then a number was not found
-    if (check != 1) {
+    if (check != 1)
+    {
       printf("Error: Non-numerical Argument\n");
       return 1;
     }
   }
 
-  do {
+  do
+  {
     printf("1 - Show all values\n");
     printf("2 - Calculate sum\n");
     printf("3 - Calculate mean\n");
@@ -51,27 +56,32 @@ int main(int argc, char **argv) {
     fgets(buffer, sizeof(buffer), stdin);
     int check = sscanf(buffer, "%d ", &choice);
 
-    if (check != 1) {
+    if (check != 1)
+    {
       printf("Error: Invalid choice\n");
       continue;
     }
 
-    switch (choice) {
+    switch (choice)
+    {
     case 1:
-      for (int i = 0; i < count; i++) {
+      for (int i = 0; i < count; i++)
+      {
         // using a ternary to decide between a space or a newline
         printf("%d%c", numbers[i], (i == count - 1) ? '\n' : ' ');
       }
       break;
     case 2:
-      for (int i = 0; i < count; i++) {
+      for (int i = 0; i < count; i++)
+      {
         total += numbers[i];
       }
       printf("Total is: %d\n", total);
       break;
     case 3:
       total = 0;
-      for (int i = 0; i < count; i++) {
+      for (int i = 0; i < count; i++)
+      {
         total += numbers[i];
       }
       // C will do integer division unless we cast

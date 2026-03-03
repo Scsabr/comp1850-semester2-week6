@@ -44,6 +44,52 @@ float average_all(int count, int *numbers) {
   return (float)total / count;
 }
 
+/**
+ * @brief finds the maximum number in the array
+ * 
+ * @param count size of array
+ * @param numbers array of ints
+ * @return int the largest value in the array
+ */
+int max(int count, int* numbers)
+{
+  int current = -1;
+  for (int i=0; i< count; i++)
+  {
+    current = (numbers[i]>current)?numbers[i]:current; 
+  }
+  return current;
+}
+
+/**
+ * @brief finds the smallest value in an array
+ * 
+ * @param count size of array
+ * @param numbers array of integers
+ * @return int the smallest value in the array
+ */
+int min(int count, int* numbers)
+{
+  int current = 99999999999;
+  for (int i=0; i< count; i++)
+  {
+    current = (numbers[i]<current)?numbers[i]:current; 
+  }
+  return current;
+}
+
+/**
+ * @brief Finds the range of the array (max - min)
+ * 
+ * @param count size of array
+ * @param numbers array of ints
+ * @return int the max - min
+ */
+int range(int count, int* numbers)
+{
+  return max(count, numbers) - min(count, numbers);
+}
+
 int main(int argc, char **argv) {
   if (argc < 2) {
     printf("Usage: ./averages num1 ... numx\n");
@@ -56,6 +102,7 @@ int main(int argc, char **argv) {
   int choice = 0;
   int total = 0;
   float mean;
+  int maximum, minimum, numrange, mode, median;
 
   numbers = calloc(count, sizeof(int));
 
@@ -72,7 +119,10 @@ int main(int argc, char **argv) {
     printf("1 - Show all values\n");
     printf("2 - Calculate sum\n");
     printf("3 - Calculate mean\n");
-    printf("4 - exit\n");
+    printf("4 - Calculate max\n");
+    printf("5 - Calculate min\n");
+    printf("6 - Calculate range\n");
+    printf("10 - exit\n");
 
     printf("Enter choice: ");
     fgets(buffer, sizeof(buffer), stdin);
@@ -96,13 +146,25 @@ int main(int argc, char **argv) {
       printf("Average is: %.2f\n", mean);
       break;
     case 4:
+      maximum = max(count, numbers);
+      printf("Maximum is: %d\n", maximum);
+      break;
+    case 5:
+      minimum = min(count, numbers);
+      printf("Minimum is: %d\n", minimum);
+      break;
+    case 6:
+      numrange = range(count, numbers);
+      printf("Range is: %d\n", numrange);
+      break;
+    case 10:
       printf("Exiting...\n");
       break;
     default:
       printf("Error: Invalid choice\n");
       break;
     }
-  } while (choice != 4);
+  } while (choice!=10);
 
   return 0;
 }
