@@ -1,15 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#define GRID_SIZE 21 // 21x21 grid for -10 to +10 range
-
-// Function prototypes
-void draw_grid(char **grid);
-char **initialize_grid(void);
-void add_point(char **grid, int x, int y);
-void move_point(int *x, int *y, int dx, int dy);
-void reflect_point(int *x, int *y, char axis);
-void swap_coords(int *x, int *y);
+#include "1_byref.h"
 
 int main(void) {
   // this creates a 20 x 20 grid (-10 -> +10, plus 1 row & column used for axes.)
@@ -20,8 +9,8 @@ int main(void) {
   add_point(grid, x, y);
   draw_grid(grid);
 
-  // if you want to 'reset' and remove things, you can re-init it to clear
-  grid = initialize_grid();
+  move_point(&x, &y, 3, -1);
+  add_point(grid, x, y);
   draw_grid(grid);
 
   return 0;
@@ -38,6 +27,8 @@ int main(void) {
 void move_point(int *x, int *y, int dx, int dy) {
   // update the coordinates by the given delta
   // i.e. (x+dx, y+dy)
+  *x = *x + dx;
+  *y = *y + dy;
 }
 
 /**
@@ -51,6 +42,17 @@ void reflect_point(int *x, int *y, char axis) {
   // reflect the point across the given axis
   // e.g. reflect (7,3) across the X axis -> (7,-3)
   // across the y axis -> (-7, 3)
+  *x = (axis=='x')?*x:-(*x);
+  *y = (axis=='y')?*y:-(*y);
+
+  if (axis=='x')
+  {
+    *y = (*y);
+  }
+  else
+  {
+    *x = -(*x);
+  }
 }
 
 /**
@@ -61,6 +63,11 @@ void reflect_point(int *x, int *y, char axis) {
  */
 void swap_coords(int *x, int *y) {
   // swap the x and y values of a coordinate
+  int temp;
+
+  temp = *x;
+  *x = *y;
+  *y = temp;
 }
 
 /**

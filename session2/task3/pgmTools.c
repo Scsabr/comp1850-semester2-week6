@@ -73,6 +73,7 @@ unsigned char **allocateArray(int height, int width) {
   return array;
 }
 
+
 unsigned char **read(unsigned char *fn, int *a, int *b) {
   unsigned char temp[10];
   int h, w;

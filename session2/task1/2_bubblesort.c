@@ -30,5 +30,23 @@ int main(void) {
  * @param n The number of elements in the array.
  */
 void bubbleSort(int array[], int n) {
-  // code goes here
+  
+  int swapped = 0;
+  int temp;
+  
+  for (int i=0; i<n; i++)
+  {
+    for(int j=i+1;j<n;j++)
+    {
+      if (array[i]>array[j])
+      {
+          temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+          swapped = 1;
+      }
+    }
+    if (!swapped)
+      break;
+  }
 }

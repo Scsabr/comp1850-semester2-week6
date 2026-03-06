@@ -10,6 +10,9 @@
 
 #include "acutest.h"
 #include <string.h>
+#include <ctype.h>
+
+#define BAD_STRING -1
 
 /* Function prototype */
 int is_palindrome(const char *str);
@@ -38,7 +41,33 @@ void test_obvious_palindrome(void) {
  * 2. Use TEST_MSG("message") to explain what went wrong if it fails
  * ============================================================ */
 
+void test_empty_string(void) {
+    TEST_CHECK(is_palindrome("") == BAD_STRING);
+    TEST_MSG("Expected BAD STRING error");
+}
 
+void test_single_char(void) {
+    TEST_CHECK(is_palindrome("A") == 1);
+    TEST_MSG("Expected 'A' is palindrome ");
+}
+
+void test_non_palindrome(void)
+{
+    TEST_CHECK(is_palindrome("tomato") == 0);
+    TEST_MSG("Expected 'tomato' is not palindrome");
+}
+
+void test_even_letter_palindrome(void)
+{
+    TEST_CHECK(is_palindrome("adda")==1);
+    TEST_MSG("Expected adda is palindrome");
+}
+
+void test_mixed_case(void)
+{
+    TEST_CHECK(is_palindrome("Racecar")==1);
+    TEST_MSG("Expected Racecar is palindrome");
+}
 
 /* ============================================================
  * TEST_LIST - Register all your tests here
@@ -52,6 +81,11 @@ TEST_LIST = {
      * { "single character", test_single_char },
      * { "empty string", test_empty_string },
      */
+    { "bad string (empty)", test_empty_string },
+    { "single character palindrome", test_single_char },
+    { "non-palindrome", test_non_palindrome },
+    {"even number of letters", test_even_letter_palindrome},
+    { "non-matching case", test_mixed_case },
     { NULL, NULL }
 };
 
@@ -67,8 +101,10 @@ TEST_LIST = {
  */
 int is_palindrome(const char *str) {
     int len = strlen(str);
+    if (len==0) return BAD_STRING;
+
     for (int i = 0; i < len / 2; i++) {
-        if (str[i] != str[len - i - 1]) {
+        if (toupper(str[i]) != toupper(str[len - i - 1])) {
             return 0;
         }
     }
